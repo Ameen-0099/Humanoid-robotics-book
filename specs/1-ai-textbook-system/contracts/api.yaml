@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Physical AI & Humanoid Robotics Textbook System API
+  version: 1.0.0
+paths:
+  /chat/general:
+    post:
+      summary: Ask a general question about the textbook
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query: { type: string, description: 'The user's question.' }
+                user_id: { type: string, description: 'Optional user ID for personalized responses.' }
+      responses:
+        '200':
+          description: Successful response with chatbot answer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer: { type: string }
+                  sources: { type: array, items: { type: string } }
+  /chat/selected-text:
+    post:
+      summary: Ask a question based on selected textbook text
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query: { type: string, description: 'The user's question.' }
+                selected_text: { type: string, description: 'The text selected by the user.' }
+                user_id: { type: string, description: 'Optional user ID for personalized responses.' }
+      responses:
+        '200':
+          description: Successful response with chatbot answer based on selection.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  answer: { type: string }
+                  sources: { type: array, items: { type: string } }
+  /auth/signup:
+    post:
+      summary: Register a new user (Bonus)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string }
+                email: { type: string }
+                password: { type: string }
+                skill_level: { type: string, enum: ["Beginner", "Intermediate", "Advanced"] }
+                hardware_background: { type: array, items: { type: string } }
+                software_background: { type: array, items: { type: string } }
+      responses:
+        '200': { description: 'User successfully registered.' }
+        '400': { description: 'Invalid input.' }
+  /auth/signin:
+    post:
+      summary: Log in an existing user (Bonus)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200': { description: 'User successfully logged in, returns auth token.' }
+        '401': { description: 'Invalid credentials.' }
+  /user/profile:
+    get:
+      summary: Get user profile (Bonus)
+      parameters:
+        - in: header
+          name: Authorization
+          schema: { type: string }
+          required: true
+      responses:
+        '200':
+          description: User profile data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user_id: { type: string }
+                  skill_level: { type: string }
+                  hardware_background: { type: array, items: { type: string } }
+                  software_background: { type: array, items: { type: string } }
+        '401': { description: 'Unauthorized.' }
+    put:
+      summary: Update user profile (Bonus)
+      parameters:
+        - in: header
+          name: Authorization
+          schema: { type: string }
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                skill_level: { type: string, enum: ["Beginner", "Intermediate", "Advanced"] }
+                hardware_background: { type: array, items: { type: string } }
+                software_background: { type: array, items: { type: string } }
+      responses:
+        '200': { description: 'Profile updated.' }
+        '400': { description: 'Invalid input.' }
+        '401': { description: 'Unauthorized.' }
+  /personalize/skill-level:
+    post:
+      summary: Personalize chapter content by skill level (Bonus)
+      parameters:
+        - in: header
+          name: Authorization
+          schema: { type: string }
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chapter_id: { type: string, description: 'ID of the chapter to personalize.' }
+                target_skill_level: { type: string, enum: ["Beginner", "Intermediate", "Advanced"], description: 'Desired skill level.' }
+      responses:
+        '200':
+          description: Personalized chapter content.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  personalized_content: { type: string }
+        '401': { description: 'Unauthorized.' }
+  /translate/urdu:
+    post:
+      summary: Translate chapter content to Urdu (Bonus)
+      parameters:
+        - in: header
+          name: Authorization
+          schema: { type: string }
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                chapter_id: { type: string, description: 'ID of the chapter to translate.' }
+      responses:
+        '200':
+          description: Urdu translated chapter content.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  translated_content: { type: string }
+        '401': { description: 'Unauthorized.' }

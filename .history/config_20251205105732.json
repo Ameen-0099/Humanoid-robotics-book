@@ -1,0 +1,26 @@
+(base) PS C:\Users\user\humanoid-Robotics-Book> dir
+
+
+    Directory: C:\Users\user\humanoid-Robotics-Book
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         12/5/2025  12:35 AM                .claude
+d-----         12/5/2025  12:32 AM                .history
+d-----         12/4/2025   1:04 PM                .specify
+d-----         12/5/2025  12:40 AM                docusaurus-book
+d-----         12/4/2025   6:59 PM                fastapi-backend
+d-----         12/4/2025   3:29 PM                history
+d-----         12/4/2025   3:43 PM                specs
+-a----         12/4/2025   6:14 PM             78 .dockerignore
+-a----         12/4/2025   6:31 PM             55 .eslintignore
+-a----         12/4/2025   6:13 PM            236 .gitignore
+-a----         12/4/2025   6:34 PM            105 .npmignore
+-a----         12/4/2025   6:32 PM             91 .prettierignore
+-a----         12/4/2025   1:04 PM          10323 CLAUDE.md
+
+
+(base) PS C:\Users\user\humanoid-Robotics-Book>
+
+

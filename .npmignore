@@ -1,0 +1,13 @@
+# npm
+.git/
+.gitignore
+.DS_Store
+*.log
+*.log.*
+npm-debug.log*
+.npm/
+.c9/
+.idea/
+.vscode/
+.env*
+coverage/

@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: Claude Code Integration API
+  version: 1.0.0
+description: API for the development environment to interact with the Claude Code intelligent assistance system.
+
+paths:
+  /assist:
+    post:
+      summary: Request intelligent assistance for a development task.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                developer_id:
+                  type: string
+                  description: Unique identifier for the developer.
+                prompt:
+                  type: string
+                  description: The natural language prompt or command from the developer.
+                current_file_context:
+                  type: string
+                  nullable: true
+                  description: Optional content of the currently active file or selection.
+                session_context:
+                  type: object
+                  nullable: true
+                  description: In-memory conversational context from the current session.
+      responses:
+        '200':
+          description: Assistance response received successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response_id:
+                    type: string
+                  content:
+                    type: string
+                    description: The intelligent assistance's textual response, explanation, or code.
+                  proposed_actions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum: ["file_modification", "command_execution"]
+                        details:
+                          type: object
+                          description: Details of the proposed action (e.g., file path, diff, command string).
+                  status:
+                    type: string
+                    enum: ["success", "pending_authorization", "error"]
+        '400':
+          description: Invalid request.
+        '500':
+          description: Internal server error.
+
+  /authorize:
+    post:
+      summary: Authorize a proposed action from the intelligent assistance.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                developer_id:
+                  type: string
+                  description: Unique identifier for the developer.
+                response_id:
+                  type: string
+                  description: The ID of the assistance response that proposed the action.
+                action_index:
+                  type: integer
+                  description: The index of the proposed action within the response's proposed_actions array.
+                approved:
+                  type: boolean
+                  description: True if the action is approved, false otherwise.
+      responses:
+        '200':
+          description: Authorization status received.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: ["authorized", "rejected", "error"]
+        '400':
+          description: Invalid request.
+        '500':
+          description: Internal server error.
