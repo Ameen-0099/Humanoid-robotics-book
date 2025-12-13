@@ -37,11 +37,14 @@ Key architectural decisions, particularly regarding database choices (NeonDB for
 ### Automated Spec Synchronization
 All updates to this Constitution must automatically trigger a rebuild and synchronization of dependent specifications and artifacts to ensure continuous alignment and prevent drift.
 
+### Interactive Learning Environment
+The project must provide an interactive learning environment by integrating a Retrieval-Augmented Generation (RAG) chatbot. This chatbot will assist users in understanding the book's content by answering questions and providing explanations.
+
 ## Project Deliverables and Requirements
 
 ### Core Deliverables:
 1.  **AI/Spec-Driven Textbook:** Use Spec-Kit Plus to generate all chapters, Docusaurus to build the book, and deploy to GitHub Pages or Vercel.
-2.  **Integrated RAG Chatbot:** Uses OpenAI ChatKit/Agents SDK, backend in FastAPI, NeonDB for structured data, and Qdrant Cloud Free Tier for vector embeddings. Supports answering general questions about the book and answering based ONLY on text user selects (highlight → ask).
+2.  **Integrated RAG Chatbot:** Build and embed a Retrieval-Augmented Generation (RAG) chatbot within the published book. This chatbot, utilizing the OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres database, and Qdrant Cloud Free Tier, must be able to answer user questions about the book's content, including answering questions based only on text selected by the user.
 3.  **Spec Synchronization:** All updates to the project must synchronize `.specify/memory/constitution.md` automatically.
 
 ### Bonus Deliverables (Optional):
@@ -73,7 +76,7 @@ The book must build with Node.js and Docusaurus. The RAG System requires a FastA
 ## Governance
 This Constitution supersedes all other project documentation and practices. Amendments to this Constitution must be formally documented, approved, and require a clear migration plan for any affected specifications or codebases. All Pull Requests and code reviews must explicitly verify compliance with the principles and requirements outlined in this Constitution. Any increase in system complexity must be thoroughly justified and aligned with project principles.
 
-**Version**: 1.0.1 | **Ratified**: TODO(RATIFICATION_DATE): Please clarify the original adoption date if known. | **Last Amended**: 2025-12-06
+**Version**: 1.0.2 | **Ratified**: TODO(RATIFICATION_DATE): Please clarify the original adoption date if known. | **Last Amended**: 2025-12-10
 
 ---
 

@@ -1,14 +1,15 @@
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
-from dotenv import load_dotenv
+# Determine the path to the .env file in the parent directory (fastapi-backend)
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
-# Load .env file
-load_dotenv()
+# Database connection URL for Neon
+NEON_DATABASE_URL = os.getenv("NEON_DATABASE_URL")
 
-NEON_DB_HOST = os.getenv("NEON_DB_HOST")
-NEON_DB_PORT = os.getenv("NEON_DB_PORT")
-NEON_DB_NAME = os.getenv("NEON_DB_NAME")
-NEON_DB_USER = os.getenv("NEON_DB_USER")
-NEON_DB_PASSWORD = os.getenv("NEON_DB_PASSWORD")
+# OpenAI API Key
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+
