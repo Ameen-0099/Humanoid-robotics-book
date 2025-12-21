@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    image: humanoid-robotics-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_URL=${QDRANT_URL}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_EMBEDDING_MODEL=${OPENAI_EMBEDDING_MODEL:-text-embedding-ada-002}
+      - OPENAI_CHAT_MODEL=${OPENAI_CHAT_MODEL:-gpt-3.5-turbo}
+      - QDRANT_COLLECTION_NAME=${QDRANT_COLLECTION_NAME:-book_chunks}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      # Optional: Mount logs directory if you want to persist logs outside the container
+      - ./fastapi-backend/logs:/app/logs
+    networks:
+      - app-network
+
+  frontend:
+    image: humanoid-robotics-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
