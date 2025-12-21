@@ -2,7 +2,7 @@
 const config = {
   title: 'AI Humanoid Book',
   url: 'https://Ameen-0099.github.io',
-  baseUrl: '/Humanoid-robotics-book/',
+  baseUrl: '/humanoid-robotics-book/',
   onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -27,9 +27,6 @@ const config = {
       }),
     ],
   ],
-
-  // Add clientModules here
-  clientModules: [require.resolve('./src/client-modules/navbar-auth.js')],
 
   plugins: [
     [
@@ -62,27 +59,7 @@ const config = {
                   position: 'left',
                   label: 'Tutorial',
                 },
-                // Add Login link
-                {
-                  to: '/login', // Link to your custom login page
-                  label: 'Login',
-                  position: 'right',
-                  className: 'navbar-login-link', // Custom class for styling
-                },
-                // Add Signup link
-                {
-                  to: '/signup', // Link to your custom signup page
-                  label: 'Sign Up',
-                  position: 'right',
-                  className: 'navbar-signup-link', // Custom class for styling
-                },
-                // Add Profile link (initially always visible, will hide with CSS/JS later)
-                {
-                  to: '/profile', // Link to your custom profile page
-                  label: 'Profile', // Or use an icon here
-                  position: 'right',
-                  className: 'navbar-profile-link', // Custom class for styling
-                },
+      
                 {
                   href: 'https://github.com/Ameen-0099/humanoid-robotics-book',
                   label: 'GitHub',
@@ -118,119 +95,47 @@ const config = {
               searchPagePath: 'search',
             },
             footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Introduction',
-              to: '/intro',
-            },
-            {
-              label: 'Foundations',
-              to: '/foundations',
-            },
-            {
-              label: 'ROS',
-              to: '/ros',
-            },
-            {
-              label: 'Simulation',
-              to: '/simulation',
-            },
-            {
-              label: 'Isaac',
-              to: '/isaac',
-            },
-            {
-              label: 'VLA',
-              to: '/vla',
-            },
-            {
-              label: 'Kinematics',
-              to: '/kinematics',
-            },
-            {
-              label: 'Manipulation',
-              to: '/manipulation',
-            },
-            {
-              label: 'GPT',
-              to: '/gpt',
-            },
-            {
-              label: 'Learning',
-              to: '/learning',
-            },
-            {
-              label: 'Ethics',
-              to: '/ethics',
-            },
-            {
-              label: 'Locomotion',
-              to: '/locomotion',
-            },
-            {
-              label: 'Capstone',
-              to: '/capstone',
-            },
-            {
-              label: 'References',
-              to: '/references',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/Ameen-0099/humanoid-robotics-book',
-            },
-            {
-              label: 'Glossary',
-              to: '/glossary',
-            },
-            {
-              label: 'Report a Bug',
-              href: 'https://github.com/Ameen-0099/humanoid-robotics-book/issues/new',
-            },
-          ],
-        },
-        {
-          title: 'Legal',
-          items: [
-            {
-              label: 'Privacy Policy',
-              href: '/privacy-policy',
-            },
-            {
-              label: 'Terms of Service',
-              href: '/terms-of-service',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-    },
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Tutorial',
+                to: '/intro',
+              },
+            ],
+          },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'Stack Overflow',
+                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              },
+              {
+                label: 'Discord',
+                href: 'https://discordapp.com/invite/docusaurus',
+              },
+              {
+                label: 'Twitter',
+                href: 'https://twitter.com/docusaurus',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+
+              {
+                label: 'GitHub',
+                href: 'https://github.com/Ameen-0099/humanoid-robotics-book',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      },
 
     }),
 };

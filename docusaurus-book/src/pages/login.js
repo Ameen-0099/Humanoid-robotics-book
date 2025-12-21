@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
-import { API_AUTH_LOGIN } from '../utils/api'; // Import the API endpoint
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -9,7 +8,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(API_AUTH_LOGIN, { // Use the imported constant
+    const response = await fetch('http://localhost:8000/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -19,17 +18,9 @@ function Login() {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem('token', data.access_token);
-      localStorage.setItem('username', data.username); // Store username
-      localStorage.setItem('email', data.email);     // Store email
       setMessage('Login successful!');
     } else {
-      let errorMessage = 'Login failed.';
-      if (data && data.detail) {
-        errorMessage = `Login failed: ${typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail)}`;
-      } else if (data) {
-        errorMessage = `Login failed: ${JSON.stringify(data)}`;
-      }
-      setMessage(errorMessage);
+      setMessage(`Login failed: ${data.detail}`);
     }
     console.log(data);
   };

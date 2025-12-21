@@ -4,6 +4,7 @@ from sqlalchemy.future import select
 from uuid import UUID
 from typing import List
 import datetime
+from pydantic import BaseModel
 
 from app.database import get_db_session
 from app.models.chat import ChatSession, ChatMessage
@@ -18,7 +19,7 @@ class MessageResponse(BaseModel):
     timestamp: datetime.datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 @router.get("/sessions/{session_uuid}/messages", response_model=List[MessageResponse])
 async def get_chat_history(

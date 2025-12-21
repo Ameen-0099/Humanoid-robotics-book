@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
-import { API_AUTH_SIGNUP } from '../utils/api';
-import { useHistory } from '@docusaurus/router'; // Import main context hook
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 function SignUp() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState(null);
-  const history = useHistory();
-  const { siteConfig } = useDocusaurusContext(); // Use Docusaurus context
-  const { baseUrl } = siteConfig;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(API_AUTH_SIGNUP, {
+    const response = await fetch('http://localhost:8000/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,18 +18,9 @@ function SignUp() {
     });
     const data = await response.json();
     if (response.ok) {
-      setMessage('Signup successful! Redirecting to login...');
-      setTimeout(() => {
-        history.push(`${baseUrl}login`); // Use baseUrl from context
-      }, 2000);
+      setMessage('Signup successful!');
     } else {
-      let errorMessage = 'Signup failed.';
-      if (data && data.detail) {
-        errorMessage = `Signup failed: ${typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail)}`;
-      } else if (data) {
-        errorMessage = `Signup failed: ${JSON.stringify(data)}`;
-      }
-      setMessage(errorMessage);
+      setMessage(`Signup failed: ${data.detail}`);
     }
     console.log(data);
   };
