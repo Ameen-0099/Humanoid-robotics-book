@@ -46,6 +46,9 @@ async def ask_chatbot(
         logger.warning("Received empty question in chatbot request.")
         raise HTTPException(status_code=400, detail="Question cannot be empty.")
 
+    # Sanitize input by removing zero-width spaces
+    request.question = request.question.replace('\u200b', '')
+
     try:
         # 1. Find or create the chat session
         session_uuid = request.session_uuid
