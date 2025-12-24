@@ -1,17 +1,33 @@
 /** @type {import('@docusaurus/types').Config} */
+// const config = {
+//   title: 'AI Humanoid Book',
+//   url: 'https://Ameen-0099.github.io',
+//   baseUrl: '/',
+//   onBrokenLinks: 'ignore',
+//   onBrokenMarkdownLinks: 'warn',
+//   favicon: 'img/favicon.ico',
+//   organizationName: 'Ameen-0099', // Usually your GitHub org/user name.
+//   projectName: 'humanoid-robotics-book', // Usually your repo name.
+
+//   customFields: {
+//     apiBaseUrl: 'http://localhost:8000',
+//   },
 const config = {
   title: 'AI Humanoid Book',
-  url: 'https://Ameen-0099.github.io',
-  baseUrl: '/',
+
+  url: 'https://ameen-0099.github.io',
+
+  // 🔥 THIS IS THE MAIN FIX
+  baseUrl: '/Humanoid-robotics-book/',
+
+  organizationName: 'Ameen-0099',
+  projectName: 'Humanoid-robotics-book',
+
+  trailingSlash: false,
+
   onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'Ameen-0099', // Usually your GitHub org/user name.
-  projectName: 'humanoid-robotics-book', // Usually your repo name.
 
-  customFields: {
-    apiBaseUrl: 'http://localhost:8000',
-  },
 
   presets: [
     [
@@ -22,7 +38,7 @@ const config = {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/Ameen-0099/humanoid-robotics-book/tree/main/',
+            'https://github.com/Ameen-0099/Humanoid-robotics-book/tree/master/',
         },
 
         theme: {
