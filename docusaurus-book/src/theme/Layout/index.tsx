@@ -14,3 +14,4 @@ export default function LayoutWrapper(props: Props): JSX.Element {
     </>
   );
 }
+

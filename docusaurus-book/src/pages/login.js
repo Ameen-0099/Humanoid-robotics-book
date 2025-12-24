@@ -48,42 +48,44 @@ function Login() {
 
   return (
     <Layout title="Log In" description="Log in to your account">
-      <main className="container margin-vert--lg">
-        <div className="row">
-          <div className="col col--6 col--offset-3">
-            <h1>Log In</h1>
-            <form onSubmit={handleLogin}>
-              <div className="margin-bottom--md">
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="margin-bottom--md">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <button type="submit" className="button button--primary button--block">
-                Log In
-              </button>
-            </form>
-            {message && <p className="margin-top--md">{message}</p>}
-            <p className="margin-top--md">
-              Don't have an account? <a href="/signup">Sign Up</a>
-            </p>
-          </div>
+      <div className="auth-container">
+        <div className="auth-card">
+          <h1 className="auth-title">Log In</h1>
+          <form onSubmit={handleLogin}>
+            <div className="auth-form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                className="auth-input"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                className="auth-input"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            {message && <p className="auth-message">{message}</p>}
+            <button type="submit" className="auth-button">
+              Log In
+            </button>
+          </form>
+          <p className="auth-link">
+            Don't have an account? <a href="/signup">Sign Up</a>
+          </p>
         </div>
-      </main>
+      </div>
     </Layout>
   );
 }

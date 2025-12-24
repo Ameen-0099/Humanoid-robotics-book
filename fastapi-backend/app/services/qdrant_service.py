@@ -64,7 +64,7 @@ class QdrantSearchService:
                 collection_name=self.collection_name,
                 query_vector=query_embedding,
                 limit=limit,
-                score_threshold=0.3,  # Be more inclusive with search results
+                score_threshold=0.0,  # Be more inclusive with search results (temporarily for debugging)
                 with_payload=True
             )
 

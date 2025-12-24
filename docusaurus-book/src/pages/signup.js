@@ -42,70 +42,78 @@ function Signup() {
 
   return (
     <Layout title="Sign Up" description="Sign up for an account">
-      <main className="container margin-vert--lg">
-        <div className="row">
-          <div className="col col--6 col--offset-3">
-            <h1>Sign Up</h1>
-            <form onSubmit={handleSignup}>
-              <div className="margin-bottom--md">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="margin-bottom--md">
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="margin-bottom--md">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="margin-bottom--md">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Software Background (e.g., Python, C++)"
-                  value={softwareBackground}
-                  onChange={(e) => setSoftwareBackground(e.target.value)}
-                />
-              </div>
-              <div className="margin-bottom--md">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Hardware Background (e.g., Robotics, Embedded Systems)"
-                  value={hardwareBackground}
-                  onChange={(e) => setHardwareBackground(e.target.value)}
-                />
-              </div>
-              <button type="submit" className="button button--primary button--block">
-                Sign Up
-              </button>
-            </form>
-            {message && <p className="margin-top--md">{message}</p>}
-            <p className="margin-top--md">
-              Already have an account? <a href="/login">Log In</a>
-            </p>
-          </div>
+      <div className="auth-container">
+        <div className="auth-card">
+          <h1 className="auth-title">Create Account</h1>
+          <form onSubmit={handleSignup}>
+            <div className="auth-form-group">
+              <label htmlFor="name">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                className="auth-input"
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                id="email"
+                type="email"
+                className="auth-input"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                id="password"
+                type="password"
+                className="auth-input"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="software">Software Background</label>
+              <input
+                id="software"
+                type="text"
+                className="auth-input"
+                placeholder="e.g., Python, C++, ROS"
+                value={softwareBackground}
+                onChange={(e) => setSoftwareBackground(e.target.value)}
+              />
+            </div>
+            <div className="auth-form-group">
+              <label htmlFor="hardware">Hardware Background</label>
+              <input
+                id="hardware"
+                type="text"
+                className="auth-input"
+                placeholder="e.g., Robotics, Arduino, Embedded Systems"
+                value={hardwareBackground}
+                onChange={(e) => setHardwareBackground(e.target.value)}
+              />
+            </div>
+            {message && <p className="auth-message">{message}</p>}
+            <button type="submit" className="auth-button">
+              Sign Up
+            </button>
+          </form>
+          <p className="auth-link">
+            Already have an account? <a href="/login">Log In</a>
+          </p>
         </div>
-      </main>
+      </div>
     </Layout>
   );
 }

@@ -1,10 +1,11 @@
+import requests
 from fastapi import FastAPI
 import app.config  # Import to load environment variables
 from fastapi.middleware.cors import CORSMiddleware
 # from .database import engine  # Assuming this might be the import
 # from .models import user  # Assuming this might be the import
-from .api import auth, chatbot, history
-from app.services.logger import setup_logging, logger # Import logger
+from app.api import chatbot, history, auth
+from app.services.logger import setup_logging, logger # Re-Import logger
 
 # Initialize logging as early as possible
 setup_logging()
@@ -16,6 +17,7 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
 ]
 
 app.add_middleware(
@@ -26,7 +28,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(auth.router, prefix="/api/auth", tags=["Auth"])
 app.include_router(chatbot.router, prefix="/api", tags=["chatbot"])
 app.include_router(history.router, prefix="/api", tags=["history"])
 

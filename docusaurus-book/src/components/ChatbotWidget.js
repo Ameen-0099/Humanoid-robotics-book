@@ -131,10 +131,17 @@ const ChatbotWidget = () => {
 
     const chatbotUI = (
         <div className={styles.chatbotContainer}>
-            <button className={styles.chatToggleButton} onClick={toggleChat} aria-label={isOpen ? 'Close Chat' : 'Open Chat'}>
-                {isOpen ? 'X' : 'Open Chat'}
-            </button>
-            {isOpen && (
+                        <button className={styles.chatToggleButton} onClick={toggleChat} aria-label={isOpen ? 'Close Chat' : 'Open Chat'}>
+                          {isOpen ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                          ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                          )}
+                        </button>            {isOpen && (
                 <div className={styles.chatWindow}>
                     <div className={styles.chatHeader}>
                         <h2>Humanoid Robotics Book AI</h2>

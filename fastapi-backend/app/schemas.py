@@ -1,18 +1,21 @@
 from pydantic import BaseModel
 
 class UserCreate(BaseModel):
-    username: str
     email: str
     password: str
+    software_background: str | None = None
+    hardware_background: str | None = None
 
 class UserLogin(BaseModel): # New schema for login
-    username: str
+    email: str
     password: str
 
 class User(BaseModel):
     id: int
-    username: str
+    username: str # Keep username for display/internal use if needed
     email: str
+    software_background: str | None = None
+    hardware_background: str | None = None
 
     class Config:
         from_attributes = True
@@ -20,8 +23,6 @@ class User(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-    username: str
-    email: str
 
 class TokenData(BaseModel):
-    username: str | None = None
+    email: str | None = None
