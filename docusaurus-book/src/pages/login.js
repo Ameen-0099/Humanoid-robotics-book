@@ -7,7 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const profileUrl = useBaseUrl('/humanoid-robotics-book/profile');
+  const profileUrl = useBaseUrl('/profile');
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -85,7 +85,7 @@ function Login() {
             </button>
           </form>
           <p className="auth-link">
-            Don't have an account? <Link to="/humanoid-robotics-book/signup">Sign Up</Link>
+            Don't have an account? <Link to="/signup">Sign Up</Link>
           </p>
         </div>
       </div>

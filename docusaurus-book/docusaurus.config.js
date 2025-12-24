@@ -2,7 +2,7 @@
 const config = {
   title: 'AI Humanoid Book',
   url: 'https://Ameen-0099.github.io',
-  baseUrl: '/humanoid-robotics-book/',
+  baseUrl: '/',
   onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',

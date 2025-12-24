@@ -8,7 +8,7 @@ function Profile() {
   const { siteConfig } = useDocusaurusContext();
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('Loading profile...');
-  const loginUrl = useBaseUrl('/humanoid-robotics-book/login');
+  const loginUrl = useBaseUrl('/login');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -69,7 +69,7 @@ function Profile() {
               </div>
             )}
             {!user && !message && (
-              <p>Please <Link to="/humanoid-robotics-book/login">log in</Link> to view your profile.</p>
+              <p>Please <Link to="/login">log in</Link> to view your profile.</p>
             )}
           </div>
         </div>
