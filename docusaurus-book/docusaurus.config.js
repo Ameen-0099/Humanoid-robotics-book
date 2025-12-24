@@ -9,6 +9,10 @@ const config = {
   organizationName: 'Ameen-0099', // Usually your GitHub org/user name.
   projectName: 'humanoid-robotics-book', // Usually your repo name.
 
+  customFields: {
+    apiBaseUrl: 'http://localhost:8000',
+  },
+
   presets: [
     [
       'classic',
@@ -29,6 +33,7 @@ const config = {
   ],
 
   plugins: [
+    './plugins/webpack-proxy-plugin', // Path to your plugin
     [
       '@docusaurus/plugin-client-redirects',
       {
@@ -50,7 +55,7 @@ const config = {
       
                       logo: {
                         alt: 'AI Humanoid Robotics Logo',
-                        src: 'img/ai_logo.svg',
+                        src: 'img/new_logo.png',
                       },              items: [
       
                 {
@@ -65,6 +70,12 @@ const config = {
                   label: 'GitHub',
                   position: 'right',
                 },
+                {
+                  type: 'custom-AuthNavbarItem',
+                  position: 'right',
+                  className: 'auth-navbar-item',
+                },
+
               ],
             },
             algolia: {
@@ -100,10 +111,12 @@ const config = {
           {
             title: 'Docs',
             items: [
-              {
-                label: 'Tutorial',
-                to: '/intro',
-              },
+              { label: 'Introduction', to: '/intro' },
+              { label: 'Foundations', to: '/foundations' },
+              { label: 'ROS', to: '/ros' },
+              { label: 'Simulation', to: '/simulation' },
+              { label: 'Isaac', to: '/isaac' },
+              { label: 'VLA', to: '/vla' },
             ],
           },
           {
@@ -126,7 +139,14 @@ const config = {
           {
             title: 'More',
             items: [
-
+              { label: 'Kinematics', to: '/kinematics' },
+              { label: 'Manipulation', to: '/manipulation' },
+              { label: 'GPT', to: '/gpt' },
+              { label: 'Learning', to: '/learning' },
+              { label: 'Ethics', to: '/ethics' },
+              { label: 'Locomotion', to: '/locomotion' },
+              { label: 'Capstone', to: '/capstone' },
+              { label: 'References', to: '/references' },
               {
                 label: 'GitHub',
                 href: 'https://github.com/Ameen-0099/humanoid-robotics-book',
