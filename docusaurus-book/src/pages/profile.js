@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Link from '@docusaurus/Link';
 
 function Profile() {
   const { siteConfig } = useDocusaurusContext();
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('Loading profile...');
+  const loginUrl = useBaseUrl('/humanoid-robotics-book/login');
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -44,7 +47,7 @@ function Profile() {
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
-    window.location.href = '/login';
+    window.location.href = loginUrl;
   };
 
   return (
@@ -66,7 +69,7 @@ function Profile() {
               </div>
             )}
             {!user && !message && (
-              <p>Please <a href="/login">log in</a> to view your profile.</p>
+              <p>Please <Link to="/humanoid-robotics-book/login">log in</Link> to view your profile.</p>
             )}
           </div>
         </div>

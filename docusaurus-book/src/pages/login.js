@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const profileUrl = useBaseUrl('/humanoid-robotics-book/profile');
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -36,7 +39,7 @@ function Login() {
         localStorage.setItem('auth_session', JSON.stringify({ ...data, email }));
         localStorage.setItem('access_token', data.access_token);
         setMessage('Login successful!');
-        window.location.href = '/profile'; // Redirect to profile page
+        window.location.href = profileUrl; // Redirect to profile page
       } else {
         setMessage(`Login failed: ${data.message || response.statusText}`);
       }
@@ -82,7 +85,7 @@ function Login() {
             </button>
           </form>
           <p className="auth-link">
-            Don't have an account? <a href="/signup">Sign Up</a>
+            Don't have an account? <Link to="/humanoid-robotics-book/signup">Sign Up</Link>
           </p>
         </div>
       </div>

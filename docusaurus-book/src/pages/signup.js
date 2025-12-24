@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-
+import Link from '@docusaurus/Link';
 import { authClient } from '../utils/authClient';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function Signup() {
-  const { siteConfig } = useDocusaurusContext();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [softwareBackground, setSoftwareBackground] = useState('');
   const [hardwareBackground, setHardwareBackground] = useState('');
   const [message, setMessage] = useState('');
+  const loginUrl = useBaseUrl('/humanoid-robotics-book/login');
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -32,7 +32,7 @@ function Signup() {
         setMessage(`Signup failed: ${error.message}`);
       } else {
         setMessage('Signup successful! Please log in.');
-        window.location.href = '/login';
+        window.location.href = loginUrl;
       }
     } catch (error) {
       console.error('Signup error:', error);
@@ -110,7 +110,7 @@ function Signup() {
             </button>
           </form>
           <p className="auth-link">
-            Already have an account? <a href="/login">Log In</a>
+            Already have an account? <Link to="/humanoid-robotics-book/login">Log In</Link>
           </p>
         </div>
       </div>
