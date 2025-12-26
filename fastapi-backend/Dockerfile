@@ -4,11 +4,11 @@ FROM python:3.9-slim-buster as builder
 WORKDIR /app
 
 # Install dependencies
-COPY fastapi-backend/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code
-COPY fastapi-backend/app ./app
+COPY app ./app
 
 # Stage 2: Create a smaller runtime image
 FROM python:3.9-slim-buster
