@@ -1,6 +1,8 @@
 import { betterAuth } from "better-auth";
 import { Pool } from "pg";
 
+console.log('--- Loading better-auth.ts ---');
+
 function initializeAuth() {
   try {
     const connectionString = process.env.NEON_DATABASE_URL;
@@ -17,12 +19,29 @@ function initializeAuth() {
     const pool = new Pool({
       connectionString: `${connectionString}?sslmode=require`,
     });
+    console.log('--- Database pool created ---');
+
+    pool.on('connect', () => {
+      console.log('🐘 Database pool connected');
+    });
+    
+    pool.on('error', (err) => {
+      console.error('🔥 Database pool error', err);
+    });
+
+    pool.query('SELECT NOW()', (err, res) => {
+      if (err) {
+        console.error('🔥 Database query error on startup', err);
+      } else {
+        console.log('🐘 Database query successful on startup:', res.rows[0]);
+      }
+    });
 
     const authInstance = betterAuth({
       // Add the missing required options
       secret: authSecret,
-      baseUrl: "http://localhost:3000", // The URL of your Docusaurus app
-      trustedOrigins: ["http://localhost:3000"],
+      baseUrl: "http://localhost:8001", // The URL of your Docusaurus app
+      trustedOrigins: ["http://localhost:3000", "http://localhost:8001"],
 
       database: pool,
       emailAndPassword: {

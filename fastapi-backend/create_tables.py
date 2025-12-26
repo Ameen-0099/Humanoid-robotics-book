@@ -35,23 +35,33 @@ async def add_missing_user_columns():
     Manually adds missing columns to the 'users' table.
     """
     async with async_engine.connect() as conn:
-        async with conn.begin():
-            try:
+        try:
+            async with conn.begin():
+                await conn.execute(text('ALTER TABLE users ADD COLUMN name VARCHAR;'))
+            print("Added 'name' column to 'users' table.")
+        except ProgrammingError as e:
+            if 'column "name" of relation "users" already exists' in str(e):
+                print("Column 'name' already exists.")
+            else:
+                raise
+        try:
+            async with conn.begin():
                 await conn.execute(text('ALTER TABLE users ADD COLUMN software_background VARCHAR;'))
-                print("Added 'software_background' column to 'users' table.")
-            except ProgrammingError as e:
-                if 'column "software_background" of relation "users" already exists' in str(e):
-                    print("Column 'software_background' already exists.")
-                else:
-                    raise
-            try:
+            print("Added 'software_background' column to 'users' table.")
+        except ProgrammingError as e:
+            if 'column "software_background" of relation "users" already exists' in str(e):
+                print("Column 'software_background' already exists.")
+            else:
+                raise
+        try:
+            async with conn.begin():
                 await conn.execute(text('ALTER TABLE users ADD COLUMN hardware_background VARCHAR;'))
-                print("Added 'hardware_background' column to 'users' table.")
-            except ProgrammingError as e:
-                if 'column "hardware_background" of relation "users" already exists' in str(e):
-                    print("Column 'hardware_background' already exists.")
-                else:
-                    raise
+            print("Added 'hardware_background' column to 'users' table.")
+        except ProgrammingError as e:
+            if 'column "hardware_background" of relation "users" already exists' in str(e):
+                print("Column 'hardware_background' already exists.")
+            else:
+                raise
 
 
 async def init_db():

@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 // Manual CORS Middleware to handle pre-flight requests
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.all("/api/auth/*", toNodeHandler(auth));
+app.all("/auth/*", toNodeHandler(auth));
 
 
 app.listen(port, () => {

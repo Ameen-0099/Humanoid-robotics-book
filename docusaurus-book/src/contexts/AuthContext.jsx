@@ -1,40 +1,61 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { siteConfig } = useDocusaurusContext();
 
-  useEffect(() => {
-    try {
-      const sessionJson = localStorage.getItem('auth_session');
-      if (sessionJson) {
-        const session = JSON.parse(sessionJson);
-        // Assuming the session object from better-auth contains user info.
-        // This might need to be adjusted based on the actual session structure.
-        // For example, it might be session.user.email
-        setUser({ email: session.email || 'user' }); 
-      } else {
+  const fetchUser = useCallback(async () => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      try {
+        const API_BASE_URL = siteConfig.customFields.apiBaseUrl;
+        const profileEndpoint = `${API_BASE_URL}/api/auth/users/me/`;
+        const response = await fetch(profileEndpoint, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+        } else {
+          setUser(null);
+          localStorage.removeItem('access_token');
+        }
+      } catch (error) {
+        console.error("Failed to fetch user", error);
         setUser(null);
       }
-    } catch (error) {
-      console.error("Failed to parse auth session", error);
+    } else {
       setUser(null);
-    } finally {
-      setLoading(false);
     }
-  }, []);
+    setLoading(false);
+  }, [siteConfig.customFields.apiBaseUrl]);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
+  const login = async (token) => {
+    localStorage.setItem('access_token', token);
+    await fetchUser();
+  };
 
   const logout = () => {
-    localStorage.removeItem('auth_session');
+    localStorage.removeItem('access_token');
     setUser(null);
-    window.location.href = '/'; // Redirect to home after logout
+    window.location.href = siteConfig.baseUrl; // Redirect to Docusaurus base URL
   };
 
   const authContextValue = {
     user,
     loading,
+    login,
     logout,
     isAuthenticated: !!user,
   };

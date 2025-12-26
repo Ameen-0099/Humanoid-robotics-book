@@ -15,7 +15,7 @@ from app.models.user import User
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/sign-in/email-and-password")
 
 def get_password_hash(password: str) -> str:
     return pwd_context.hash(password)

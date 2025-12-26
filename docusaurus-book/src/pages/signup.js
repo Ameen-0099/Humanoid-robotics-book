@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import { authClient } from '../utils/authClient';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+// import { useAuth } from '../contexts/AuthContext'; // No longer needed for signup
 
 function Signup() {
   const [name, setName] = useState('');
@@ -11,29 +11,38 @@ function Signup() {
   const [softwareBackground, setSoftwareBackground] = useState('');
   const [hardwareBackground, setHardwareBackground] = useState('');
   const [message, setMessage] = useState('');
-  const loginUrl = useBaseUrl('/humanoid-robotics-book/login');
+  const loginUrl = useBaseUrl('/login');
+  // const { authClient } = useAuth(); // No longer needed for signup
 
   const handleSignup = async (event) => {
     event.preventDefault();
     setMessage('Signing up...');
 
     try {
-      const { data, error } = await authClient.signUp.email({
-        name,
-        email,
-        password,
-        softwareBackground,
-        hardwareBackground,
+      const response = await fetch('http://127.0.0.1:8000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          software_background: softwareBackground,
+          hardware_background: hardwareBackground,
+        }),
       });
 
+      const data = await response.json();
       console.log('Signup Response Data:', data);
 
-      if (error) {
-        setMessage(`Signup failed: ${error.message}`);
-      } else {
-        setMessage('Signup successful! Please log in.');
-        window.location.href = loginUrl;
+      if (!response.ok) {
+        // Handle HTTP errors
+        throw new Error(data.detail || 'Signup failed');
       }
+
+      setMessage('Signup successful! Please log in.');
+      window.location.href = loginUrl;
     } catch (error) {
       console.error('Signup error:', error);
       setMessage(`An error occurred during signup: ${error.message || 'Network error'}`);
@@ -110,7 +119,7 @@ function Signup() {
             </button>
           </form>
           <p className="auth-link">
-            Already have an account? <Link to="/humanoid-robotics-book/login">Log In</Link>
+            Already have an account? <Link to="/login">Log In</Link>
           </p>
         </div>
       </div>

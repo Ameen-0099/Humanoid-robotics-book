@@ -2,47 +2,42 @@ import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
+import { useAuth } from '../contexts/AuthContext';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const profileUrl = useBaseUrl('/profile');
+  const { login } = useAuth();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     setMessage('Logging in...');
 
     try {
-      const details = {
-        'username': email,
-        'password': password
-      };
-      const formBody = new URLSearchParams(details);
-
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('http://127.0.0.1:8000/api/auth/sign-in/email-and-password', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: formBody,
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       });
 
-      let data;
-      try {
-        data = await response.json();
-      } catch {
-        throw new Error("Invalid JSON response from server");
+      const data = await response.json();
+      console.log('Login Response Data:', data);
+
+      if (!response.ok) {
+        // Handle HTTP errors
+        throw new Error(data.detail || 'Login failed');
       }
 
-      if (response.ok) {
-        localStorage.setItem('auth_session', JSON.stringify({ ...data, email }));
-        localStorage.setItem('access_token', data.access_token);
-        setMessage('Login successful!');
-        window.location.href = profileUrl; // Redirect to profile page
-      } else {
-        setMessage(`Login failed: ${data.message || response.statusText}`);
-      }
+      await login(data.access_token);
+      setMessage('Login successful!');
+      window.location.href = profileUrl; // Redirect to profile page
     } catch (error) {
       console.error('Login error:', error);
       setMessage(error.message || 'An error occurred during login.');
