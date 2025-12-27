@@ -1,18 +1,19 @@
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 class UserBase(BaseModel):
     email: EmailStr
-    name: str | None = None
-    software_background: str | None = None
-    hardware_background: str | None = None
+    name: Optional[str] = None
+    software_background: Optional[str] = None
+    hardware_background: Optional[str] = None
 
 class UserCreate(UserBase):
     password: str
 
 class UserUpdate(BaseModel):
-    name: str | None = None
-    software_background: str | None = None
-    hardware_background: str | None = None
+    name: Optional[str] = None
+    software_background: Optional[str] = None
+    hardware_background: Optional[str] = None
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -29,4 +30,4 @@ class Token(BaseModel):
     token_type: str
 
 class TokenData(BaseModel):
-    email: EmailStr | None = None
+    email: Optional[EmailStr] = None
